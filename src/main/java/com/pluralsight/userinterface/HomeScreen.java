@@ -65,6 +65,8 @@ public class HomeScreen {
     }
 
     public void showCart(){
+        System.out.println("YOUR CURRENT CART");
+        System.out.println("=====================================");
         myCart.getShoppingCart().stream()
                 .map(Product::toString)
                 .forEach(System.out::println);

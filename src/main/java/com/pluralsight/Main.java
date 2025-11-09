@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import com.pluralsight.data.ReceiptManager;
 import com.pluralsight.product.Product;
 import com.pluralsight.product.Sandwich;
 import com.pluralsight.userinterface.HomeScreen;
@@ -13,5 +14,6 @@ public class Main {
         System.out.println("Total cost: " + test.getCost());*/
         HomeScreen hs = new HomeScreen();
         hs.showHomeScreen();
+        //ReceiptManager rm = new ReceiptManager();
     }
 }
