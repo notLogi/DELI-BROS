@@ -35,8 +35,8 @@ public class Sandwich extends Product{
                 case 1 -> processMeatChoice(scanner);
                 case 2 -> processCheeseChoice(scanner);
                 case 3 -> processVegetableChoice(scanner);
-                case 4 -> processSauceChoices(scanner);
-                case 5 -> processSideChoices(scanner);
+                case 4 -> processSauceChoice(scanner);
+                case 5 -> processSideChoice(scanner);
                 default -> System.err.println("Invalid choice");
             }
         }
@@ -150,7 +150,7 @@ public class Sandwich extends Product{
         System.err.println("Invalid choice for veggies");
     }
 
-    public void processSauceChoices(Scanner scanner){
+    public void processSauceChoice(Scanner scanner){
         System.out.println("Sauces");
         System.out.println("""
                         1 - mayo
@@ -183,7 +183,7 @@ public class Sandwich extends Product{
         System.err.println("Invalid choice for sauce");
     }
 
-    public void processSideChoices(Scanner scanner){
+    public void processSideChoice(Scanner scanner){
         System.out.println("Sides");
         System.out.println("""
                         1 - sauce

@@ -24,23 +24,11 @@ public abstract class Topping {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getSize() {
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public boolean isExtra() {
         return isExtra;
-    }
-
-    public void setExtra(boolean extra) {
-        isExtra = extra;
     }
 }
