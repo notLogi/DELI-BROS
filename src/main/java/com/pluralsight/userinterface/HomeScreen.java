@@ -112,7 +112,7 @@ public class HomeScreen {
                 return;
             if(breadSize == 4 || breadSize == 8 || breadSize == 12)
                 break;
-            System.out.println("You have selected an invalid size, please type again.");
+            System.err.println("You have selected an invalid size, please type again.");
         }
 
         System.out.println("Do you want it to be toasted?\nType yes if so.");
@@ -158,7 +158,7 @@ public class HomeScreen {
                         System.out.println("Going back to menu.");
                         return;
                     }
-                    default -> System.out.println("Please enter a number 1-3!");
+                    default -> System.err.println("Please enter a number 1-3!");
                 }
 
             } catch (Exception e) {
@@ -169,18 +169,45 @@ public class HomeScreen {
     }
 
     public void addDrink(Scanner scanner){
-        while(true){
+        //Asks the user what size of drink they want.
+        int drinkSize = 0;
+        boolean didExit = false;
+        while(!didExit){
             try{
                 System.out.println("What size do you want your drink?\n 1 - small($2), 2 - medium($2.50), 3 - large($3)");
-                System.out.println("Any option will return you to the last screen.");
-                int choice = scanner.nextInt();
+                System.out.println("Type 99 tp exit");
+                drinkSize = scanner.nextInt();
                 scanner.nextLine();
-                if(choice > 3 || choice < 1){
-                    System.out.println("Returning to menu");
+                if(drinkSize == 99)
                     return;
+                if(drinkSize < 1 || drinkSize > 3) {
+                    System.out.println("Please enter a number from 1-3");
+                    break;
                 }
-                myCart.addProduct(new Drink("Drink", choice));
-                System.out.println("Drink added successfully");
+                didExit = true;
+            } catch (Exception e) {
+                System.err.println("Please enter a valid number");
+                scanner.nextLine();
+            }
+        }
+        //Asks the user what drink type they want.
+        while(true){
+            try{
+                System.out.println("What type of drink do you want?\n1 - Coke, 2 - Fanta, 3 - Sprite\nType 99 to return to menu.");
+                int drinkChoice = scanner.nextInt();
+                scanner.nextLine();
+                if(drinkChoice == 99)
+                    return;
+                switch(drinkChoice){
+                    case 1 -> myCart.addProduct(new Drink("Coke", drinkSize));
+                    case 2 -> myCart.addProduct(new Drink("Fanta", drinkSize));
+                    case 3 -> myCart.addProduct(new Drink("Sprite", drinkSize));
+                    default -> {
+                        System.err.println("Please enter a number from 1 - 3");
+                        continue;
+                    }
+                }
+                return;
             } catch (Exception e) {
                 System.err.println("Please enter a valid number");
                 scanner.nextLine();

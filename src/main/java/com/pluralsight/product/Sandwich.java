@@ -57,7 +57,7 @@ public class Sandwich extends Product{
                 case 3 -> processVegetableChoice(scanner);
                 case 4 -> processSauceChoices(scanner);
                 case 5 -> processSideChoices(scanner);
-                default -> System.out.println("Invalid choice");
+                default -> System.err.println("Invalid choice");
             }
         }
     }
@@ -94,7 +94,7 @@ public class Sandwich extends Product{
             System.out.println("Meat topping added successfully");
             return;
         }
-        System.out.println("Invalid choice for meat");
+        System.err.println("Invalid choice for meat");
     }
 
     public void processCheeseChoice(Scanner scanner){
@@ -125,7 +125,7 @@ public class Sandwich extends Product{
             System.out.println("Cheese topping added successfully");
             return;
         }
-        System.out.println("Invalid choice for cheese");
+        System.err.println("Invalid choice for cheese");
     }
 
     public void processVegetableChoice(Scanner scanner){
@@ -167,7 +167,7 @@ public class Sandwich extends Product{
             System.out.println("Veggie topping added successfully");
             return;
         }
-        System.out.println("Invalid choice for veggies");
+        System.err.println("Invalid choice for veggies");
     }
 
     public void processSauceChoices(Scanner scanner){
@@ -200,7 +200,7 @@ public class Sandwich extends Product{
             System.out.println("Sauce topping added successfully");
             return;
         }
-        System.out.println("Invalid choice for sauce");
+        System.err.println("Invalid choice for sauce");
     }
 
     public void processSideChoices(Scanner scanner){
@@ -227,7 +227,7 @@ public class Sandwich extends Product{
             System.out.println("Side has been added successfully");
             return;
         }
-        System.out.println("Invalid choice for side");
+        System.err.println("Invalid choice for side");
     }
 
     @Override
@@ -237,7 +237,7 @@ public class Sandwich extends Product{
             case 4 -> totalCost += 5.50;
             case 8 -> totalCost += 7.00;
             case 12 -> totalCost += 8.50;
-            default -> System.out.println("You did not order a sandwich.");
+            default -> System.err.println("You did not order a sandwich.");
         }
         totalCost = listOfToppings.stream()
                 .map(Topping::getCost)
