@@ -12,8 +12,6 @@ import java.util.Scanner;
 public class HomeScreen {
     private Cart myCart;
 
-
-
     public HomeScreen(){
         myCart = new Cart();
     }
@@ -21,45 +19,56 @@ public class HomeScreen {
     public void showHomeScreen(){
         Scanner scanner = new Scanner(System.in);
         while(true) {
-            System.out.println("Welcome to the sandwich shop!!!\n1) New Order\n0) Exit");
-            int choice = scanner.nextInt();
-            if (choice == 1)
-                showOrderMenu(scanner);
-            else{
-                System.out.println("Have a good day!");
-                scanner.close();
-                return;
+            try {
+                System.out.println("Welcome to the sandwich shop!!!\n1) New Order\n0) Exit");
+                int choice = scanner.nextInt();
+                if (choice == 1)
+                    showOrderMenu(scanner);
+                else {
+                    System.out.println("Have a good day!");
+                    scanner.close();
+                    return;
+                }
+            } catch (Exception e) {
+                System.err.println("Please enter a valid number");
+                scanner.nextLine();
             }
         }
     }
 
     public void showOrderMenu(Scanner scanner){
-        while(true){
-            System.out.println("THE MENU");
-            System.out.println("=========================================");
-            System.out.println("""
+        boolean didExit = false;
+        while(!didExit){
+            try{
+                System.out.println("THE MENU");
+                System.out.println("=========================================");
+                System.out.println("""
                         1 - Sandwiches
                         2 - Chips
                         3 - Drinks
                         4 - Checkout
                         5 - Current shopping cart
                         0 - Cancel Order""");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-            switch(choice){
-                case 1 -> addSandwich(scanner);
-                case 2 -> addChips(scanner);
-                case 3 -> addDrink(scanner);
-                case 4 -> {
-                    checkout(scanner);
-                    return;
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                switch(choice) {
+                    case 1 -> addSandwich(scanner);
+                    case 2 -> addChips(scanner);
+                    case 3 -> addDrink(scanner);
+                    case 4 -> {
+                        checkout(scanner);
+                        didExit = true;
+                    }
+                    case 5 -> showCart();
+                    case 0 -> {
+                        myCart.emptyShoppingCart();
+                        return;
+                    }
+                    default -> System.out.println("Invalid option");
                 }
-                case 5 -> showCart();
-                case 0 -> {
-                    myCart.emptyShoppingCart();
-                    return;
-                }
-                default -> System.out.println("Invalid option");
+            } catch (Exception e) {
+                System.err.println("Please enter a valid number!");
+                scanner.nextLine();
             }
         }
     }
@@ -73,27 +82,34 @@ public class HomeScreen {
     }
 
     public void addSandwich(Scanner scanner){
-        System.out.println("Please choose the type of bread you want.\n 1 - white, 2 - wheat, 3 - rye, 4 - wrap\nAny other option to return to menu.");
-        int breadChoice = scanner.nextInt();
-        scanner.nextLine();
-
         String breadType;
-        switch(breadChoice){
-            case 1 -> breadType = "White";
-            case 2 -> breadType = "Wheat";
-            case 3 -> breadType = "Rye";
-            case 4 -> breadType = "Wrap";
-            default -> {
-                System.out.println("Returning to menu");
-                return;
+        try{
+            System.out.println("Please choose the type of bread you want.\n 1 - white, 2 - wheat, 3 - rye, 4 - wrap\nAny other option to return to menu.");
+            int breadChoice = scanner.nextInt();
+            scanner.nextLine();
+            switch(breadChoice){
+                case 1 -> breadType = "White";
+                case 2 -> breadType = "Wheat";
+                case 3 -> breadType = "Rye";
+                case 4 -> breadType = "Wrap";
+                default -> {
+                    System.out.println("Returning to menu");
+                    return;
+                }
             }
+        } catch (Exception e) {
+            System.out.println("Returning to menu.");
+            scanner.nextLine();
+            return;
         }
 
         int breadSize;
         while(true){
-            System.out.println("What size do you want your sandwich to be?\n4 - small, 8 - medium, 12 - large");
+            System.out.println("What size do you want your sandwich to be?\n4 - small, 8 - medium, 12 - large\n99 - back to menu");
             breadSize = scanner.nextInt();
             scanner.nextLine();
+            if(breadSize == 99)
+                return;
             if(breadSize == 4 || breadSize == 8 || breadSize == 12)
                 break;
             System.out.println("You have selected an invalid size, please type again.");
@@ -108,7 +124,7 @@ public class HomeScreen {
         System.out.println("Please add a topping.");
         sandwich.addTopping(scanner);
         while(true){
-            System.out.println("Do you want to add more toppings?\n Type yes if so, any other response will default to no.");
+            System.out.println("Do you want to add more toppings?\nType yes if so, any other response will default to no.");
             String extraToppingWanted = scanner.nextLine();
             if(extraToppingWanted.equalsIgnoreCase("yes")){
                 sandwich.addTopping(scanner);
@@ -120,26 +136,56 @@ public class HomeScreen {
     }
 
     public void addChips(Scanner scanner){
-        System.out.println("Confirm 1 if you want to add chips, else return.");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-        if(choice == 1) {
-            System.out.println("Chips added successfully!");
-            myCart.addProduct(new Chips("Chips"));
+        while(true) {
+            try {
+                System.out.println("What chips do you want? 1 - BBQ, 2 - Sour Cream and Onion, 3 - Nacho Doritos\nType 99 to go back to menu");
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1 -> {
+                        myCart.addProduct(new Chips("BBQ"));
+                        return;
+                    }
+                    case 2 -> {
+                        myCart.addProduct(new Chips("Sour Cream and Onion"));
+                        return;
+                    }
+                    case 3 -> {
+                        myCart.addProduct(new Chips("Nachos Doritos"));
+                        return;
+                    }
+                    case 99 -> {
+                        System.out.println("Going back to menu.");
+                        return;
+                    }
+                    default -> System.out.println("Please enter a number 1-3!");
+                }
+
+            } catch (Exception e) {
+                System.err.println("You have entered an invalid number");
+                scanner.nextLine();
+            }
         }
     }
 
     public void addDrink(Scanner scanner){
-        System.out.println("What size do you want your drink?\n 1 - small($2), 2 - medium($2.50), 3 - large($3)");
-        System.out.println("Any option will return you to the last screen.");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-        if(choice > 3 || choice < 1){
-            System.out.println("Returning to menu");
-            return;
+        while(true){
+            try{
+                System.out.println("What size do you want your drink?\n 1 - small($2), 2 - medium($2.50), 3 - large($3)");
+                System.out.println("Any option will return you to the last screen.");
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                if(choice > 3 || choice < 1){
+                    System.out.println("Returning to menu");
+                    return;
+                }
+                myCart.addProduct(new Drink("Drink", choice));
+                System.out.println("Drink added successfully");
+            } catch (Exception e) {
+                System.err.println("Please enter a valid number");
+                scanner.nextLine();
+            }
         }
-        myCart.addProduct(new Drink("Drink", choice));
-        System.out.println("Drink added successfully");
     }
 
     public void checkout(Scanner scanner){
@@ -152,15 +198,15 @@ public class HomeScreen {
                 .map(Product::toString)
                 .forEach(System.out::println);
         System.out.println("Total cost will be: $" + String.format("%.2f", myCart.getTotalCost()));
-        System.out.println("Type confirm to confirm your order, type cancel to cancel your order");
+        System.out.println("Type confirm to confirm your order, type cancel to cancel your order\nAny other input will return you back to the menu.");
         String input = scanner.nextLine();
         if(input.equalsIgnoreCase("confirm")){
             ReceiptManager rf = new ReceiptManager();
             rf.saveReceipt(myCart);
+            System.out.println("Enjoy!!");
         }
         else if(input.equalsIgnoreCase("cancel")){
             myCart.emptyShoppingCart();
-
         }
     }
 }

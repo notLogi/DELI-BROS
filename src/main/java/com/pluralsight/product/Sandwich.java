@@ -253,6 +253,6 @@ public class Sandwich extends Product{
         }
         sb.deleteCharAt(sb.length() - 2);
         String isToastedConvert = isToasted() ? "(Toasted)" : "";
-        return "Sandwich" + isToastedConvert + ":\nBread Type: " + breadType + "\nSize: " + size + "\nToppings: " + sb + "\nPrice: " + getCost() + "\n";
+        return "Sandwich" + isToastedConvert + ":\nBread Type: " + breadType + "\nSize: " + size + "\nToppings: " + sb + "\nPrice: " + String.format("%.2f", getCost());
     }
 }

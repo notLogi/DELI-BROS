@@ -14,6 +14,6 @@ public class Chips extends Product{
 
     @Override
     public String toString() {
-        return "Chips: " + getCost() + "\n";
+        return getName() + " Chips: " + String.format("%.2f", getCost());
     }
 }
