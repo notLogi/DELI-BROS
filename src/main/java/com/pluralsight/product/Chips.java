@@ -1,8 +1,6 @@
 package com.pluralsight.product;
 
 public class Chips extends Product{
-
-
     public Chips(String name){
         super(name);
     }
