@@ -24,7 +24,7 @@ public class Sandwich extends Product{
     }
 
     public void addTopping(Scanner scanner){
-        System.out.println("What toppings do you want? Type 1-5, meat, cheese, vegetables, sauces, and sides, respectively.\nType 99 to back");
+        System.out.println("What toppings do you want? Type 1-5, meat, cheese, vegetables, sauces, and sides, respectively.\n");
         while(true) {
             try {
                 int choice = scanner.nextInt();
