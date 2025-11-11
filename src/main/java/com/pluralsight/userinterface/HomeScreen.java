@@ -128,8 +128,11 @@ public class HomeScreen {
 
         System.out.println("Please add a topping.");
         sandwich.addTopping(scanner);
-        myCart.addProduct(sandwich);
-        System.out.println("Sandwich added successfully");
+        if(!sandwich.getListOfToppings().isEmpty()) {
+            myCart.addProduct(sandwich);
+            System.out.println("Sandwich added successfully");
+        }
+        else System.out.println(":(");
     }
 
     public void addChips(Scanner scanner){

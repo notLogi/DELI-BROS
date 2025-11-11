@@ -23,16 +23,17 @@ public class Sandwich extends Product{
         return isToasted;
     }
 
+    public ArrayList<Topping> getListOfToppings(){
+        return listOfToppings;
+    }
     public void addTopping(Scanner scanner){
-        System.out.println("What toppings do you want? Type 1-5, meat, cheese, vegetables, sauces, and sides, respectively.\n");
+        System.out.println("What toppings do you want? Type 1-5, meat, cheese, vegetables, sauces, and sides, respectively.\nType 99 if you don't want a sandwich anymore");
         while(true) {
             try {
                 int choice = scanner.nextInt();
                 scanner.nextLine();
-                if (!listOfToppings.isEmpty()) {
-                    if (choice == 99) {
-                        return;
-                    }
+                if (choice == 99) {
+                    return;
                 }
                 switch (choice) {
                     case 1 -> processMeatChoice(scanner);
