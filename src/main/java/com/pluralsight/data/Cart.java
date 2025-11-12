@@ -29,7 +29,8 @@ public class Cart {
             System.out.println("You have no items in your cart.");
             return;
         }
-        System.out.println("What item would you like to remove? Type in the number");
+        //when it prints, it will display 0, so I have to add 1.
+        System.out.println("What item would you like to remove? Type in the number\nType 99 to return to menu.");
         for(int i = 0; i < shoppingCart.size(); i++){
             System.out.println((i + 1) + ") " + shoppingCart.get(i).toString());
         }
@@ -37,7 +38,8 @@ public class Cart {
             try{
                 int choice = scanner.nextInt();
                 scanner.nextLine();
-                if(choice >= 1 && choice <= shoppingCart.size()) {
+                if(choice == 99) return;
+                if(choice >= 1 && choice <= shoppingCart.size()) {//If user enters anything less than 1 or more than the number of products, it will loop again.
                     shoppingCart.remove(choice - 1);
                     return;
                 }
