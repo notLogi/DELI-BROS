@@ -49,7 +49,7 @@ public class Sandwich extends Product{
     }
 
     public void addTopping(Scanner scanner){
-        System.out.println("What toppings do you want? Type 1-5, meat, cheese, vegetables, sauces, and sides, respectively.\nType 99 if you don't want a sandwich anymore");
+        System.out.println("What toppings do you want? Type 1-5, meat, cheese, vegetables, sauces, and sides, respectively.\nType 99 to back.");
         while(true) {
             try {
                 int choice = scanner.nextInt();
@@ -302,6 +302,6 @@ public class Sandwich extends Product{
         }
         sb.deleteCharAt(sb.length() - 2);
         String isToastedConvert = isToasted() ? "(Toasted)" : "";
-        return "Sandwich" + isToastedConvert + "Price: $" + String.format("%.2f", getCost()) + ":\nBread Type: " + breadType + "\nSize: " + size + "\nToppings: " + sb;
+        return "Sandwich" + isToastedConvert + " $" + String.format("%.2f", getCost()) + "\nBread Type: " + breadType + "\nSize: " + size + "\nToppings: " + sb + "\n";
     }
 }

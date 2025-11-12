@@ -46,6 +46,7 @@ public class HomeScreen {
                         3 - Drinks
                         4 - Checkout
                         5 - Current shopping cart
+                        6 - Remove an item
                         0 - Cancel Order""");
                 System.out.println("\n==================================================");
                 int choice = scanner.nextInt();
@@ -54,11 +55,9 @@ public class HomeScreen {
                     case 1 -> addSandwich(scanner);
                     case 2 -> addChips(scanner);
                     case 3 -> addDrink(scanner);
-                    case 4 -> {
-                        checkout(scanner);
-                        didExit = true;
-                    }
+                    case 4 -> didExit = checkout(scanner);
                     case 5 -> showCart();
+                    case 6 -> myCart.removeProduct(scanner);
                     case 0 -> {
                         myCart.emptyShoppingCart();
                         return;
@@ -71,7 +70,7 @@ public class HomeScreen {
             }
         }
     }
-
+    //shows the current products the customer has
     public void showCart(){
         if(myCart.getShoppingCart().isEmpty()){
             System.out.println("Your cart is empty.");
@@ -85,6 +84,7 @@ public class HomeScreen {
         System.out.println("\n==================================================");
     }
 
+    //add sandwich
     public void addSandwich(Scanner scanner){
         System.out.println("Make your own sandwich, or simply look at our signature sandwiches.\n" +
                 "Type choose to look at our signatures. Any other option will default to create.");
@@ -171,7 +171,7 @@ public class HomeScreen {
     public int chooseSandwich(Scanner scanner){
         while(true){
             try{
-                System.out.println("Here are sandwiches to choose from!\n 1 - BLT, 2 - Chicken-Bacon Ranch\n Type 99 to back");
+                System.out.println("Here are sandwiches to choose from!\n1 - BLT, 2 - Chicken-Bacon Ranch\nType 99 to back");
                 int choice = scanner.nextInt();
                 scanner.nextLine();
                 if(choice == 99) return 0;
@@ -207,6 +207,9 @@ public class HomeScreen {
                 System.out.println("What chips do you want? 1 - BBQ, 2 - Sour Cream and Onion, 3 - Nacho Doritos\nType 99 to go back to menu");
                 int choice = scanner.nextInt();
                 scanner.nextLine();
+                if(choice >= 1 && choice <= 3){
+                    System.out.println("Chips successfully added");
+                }
                 switch (choice) {
                     case 1 -> {
                         myCart.addProduct(new Chips("BBQ"));
@@ -247,9 +250,10 @@ public class HomeScreen {
                 if(drinkSize == 99) return;
                 if(drinkSize < 1 || drinkSize > 3) {
                     System.out.println("Please enter a number from 1-3");
-                    continue;
                 }
-                didExit = true;
+                else{
+                    didExit = true;
+                }
             } catch (Exception e) {
                 System.err.println("Please enter a valid number");
                 scanner.nextLine();
@@ -257,6 +261,7 @@ public class HomeScreen {
         }
         drinkChoice(scanner, drinkSize);
     }
+
     //helper method for drink to reduce the size of the addDrink method.
     public void drinkChoice(Scanner scanner, int drinkSize){
         //Asks the user what drink type they want.
@@ -266,16 +271,24 @@ public class HomeScreen {
                 int drinkChoice = scanner.nextInt();
                 scanner.nextLine();
                 if(drinkChoice == 99) return;
-                switch(drinkChoice){
-                    case 1 -> myCart.addProduct(new Drink("Coke", drinkSize));
-                    case 2 -> myCart.addProduct(new Drink("Fanta", drinkSize));
-                    case 3 -> myCart.addProduct(new Drink("Sprite", drinkSize));
-                    default -> {
-                        System.err.println("Please enter a number from 1 - 3");
-                        continue;
-                    }
+                if(drinkChoice >= 1 && drinkChoice <= 3){
+                    System.out.println("Drink successfully added");
                 }
-                return;
+                switch(drinkChoice){
+                    case 1 -> {
+                        myCart.addProduct(new Drink("Coke", drinkSize));
+                        return;
+                    }
+                    case 2 -> {
+                        myCart.addProduct(new Drink("Fanta", drinkSize));
+                        return;
+                    }
+                    case 3 -> {
+                        myCart.addProduct(new Drink("Sprite", drinkSize));
+                        return;
+                    }
+                    default -> System.err.println("Please enter a number from 1 - 3");
+                }
             } catch (Exception e) {
                 System.err.println("Please enter a valid number");
                 scanner.nextLine();
@@ -284,13 +297,13 @@ public class HomeScreen {
     }
 
     //checkout
-    public void checkout(Scanner scanner){
+    public boolean checkout(Scanner scanner){
         //Will check if there is a sandwich. if there's not, then return and make the user order chips or a drink
         if(myCart.getShoppingCart().isEmpty()){
             System.out.println("You have to either order a sandwich, or have a drink/chips in order to check out.");
-            return;
+            return false;
         }
-        myCart.getShoppingCart().forEach(System.out::println);
+        showCart();
         System.out.println("Total cost will be: $" + String.format("%.2f", myCart.getTotalCost()));
         System.out.println("Type confirm to confirm your order, type cancel to cancel your order\nAny other input will return you back to the menu.");
         String input = scanner.nextLine();
@@ -299,9 +312,13 @@ public class HomeScreen {
             rf.saveReceipt(myCart);
             System.out.println("Enjoy!!");
             myCart.emptyShoppingCart();
+            return true;
         }
         else if(input.equalsIgnoreCase("cancel")){
             myCart.emptyShoppingCart();
+            return true;
         }
+        return false;
     }
+
 }

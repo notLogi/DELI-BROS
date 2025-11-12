@@ -3,6 +3,7 @@ package com.pluralsight.data;
 import com.pluralsight.product.Product;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Cart {
     private ArrayList<Product> shoppingCart;
@@ -21,6 +22,33 @@ public class Cart {
 
     public void emptyShoppingCart(){
         shoppingCart.clear();
+    }
+
+    public void removeProduct(Scanner scanner){
+        if(shoppingCart.isEmpty()){
+            System.out.println("You have no items in your cart.");
+            return;
+        }
+        System.out.println("What item would you like to remove? Type in the number");
+        for(int i = 0; i < shoppingCart.size(); i++){
+            System.out.println((i + 1) + ") " + shoppingCart.get(i).toString());
+        }
+        while(true){
+            try{
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                if(choice >= 1 && choice <= shoppingCart.size()) {
+                    shoppingCart.remove(choice - 1);
+                    return;
+                }
+                else{
+                    System.out.println("The item you want to remove is not listed.");
+                }
+            } catch (Exception e) {
+                System.err.println("Please enter a number, no letters please.");
+                scanner.nextLine();
+            }
+        }
     }
 
     public double getTotalCost(){
