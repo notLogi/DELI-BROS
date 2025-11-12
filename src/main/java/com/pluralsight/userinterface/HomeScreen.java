@@ -1,15 +1,8 @@
 package com.pluralsight.userinterface;
 
-import com.pluralsight.data.Cart;
-import com.pluralsight.data.ReceiptManager;
-import com.pluralsight.product.Chips;
-import com.pluralsight.product.Drink;
-import com.pluralsight.product.Product;
-import com.pluralsight.product.Sandwich;
-import com.pluralsight.toppings.Meat;
-import com.pluralsight.toppings.Sauce;
-import com.pluralsight.toppings.Topping;
-import com.pluralsight.toppings.Vegetable;
+import com.pluralsight.data.*;
+import com.pluralsight.product.*;
+import com.pluralsight.toppings.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -111,7 +104,7 @@ public class HomeScreen {
         String toastedInput = scanner.nextLine();
         boolean wantToasted = toastedInput.equalsIgnoreCase("yes");
 
-        Sandwich sandwich = new Sandwich("Sandwich", breadType, breadSize, wantToasted);
+        Sandwich sandwich = new Sandwich("Custom Sandwich", breadType, breadSize, wantToasted);
 
         if(optionCreateOwn.equalsIgnoreCase("choose")){
             sandwich.setListOfToppings(buildSignatureSandwich(signatureChoice, breadSize));
@@ -123,7 +116,7 @@ public class HomeScreen {
         if(!sandwich.getListOfToppings().isEmpty()) {
             myCart.addProduct(sandwich);
             System.out.println("Sandwich added successfully");
-            System.out.println("Do you want to remove any toppings?\n Any other option is no");
+            System.out.println("Do you want to remove any toppings?\nAny other option is no");
             String choice = scanner.nextLine();
             if(choice.equalsIgnoreCase("yes")){
                 System.out.println(sandwich);//toString is "redundant", can just print out sandwich details.
@@ -133,6 +126,7 @@ public class HomeScreen {
         else System.out.println(":(");
     }
 
+    //helper methods
     public String chooseBreadType(Scanner scanner){
         try{
             System.out.println("Please choose the type of bread you want.\n 1 - white, 2 - wheat, 3 - rye, 4 - wrap\nAny other option to return to menu.");
@@ -206,6 +200,7 @@ public class HomeScreen {
         return toppings;
     }
 
+    //add drinks/chips
     public void addChips(Scanner scanner){
         while(true) {
             try {
@@ -260,6 +255,10 @@ public class HomeScreen {
                 scanner.nextLine();
             }
         }
+        drinkChoice(scanner, drinkSize);
+    }
+    //helper method for drink to reduce the size of the addDrink method.
+    public void drinkChoice(Scanner scanner, int drinkSize){
         //Asks the user what drink type they want.
         while(true){
             try{
@@ -284,15 +283,14 @@ public class HomeScreen {
         }
     }
 
+    //checkout
     public void checkout(Scanner scanner){
         //Will check if there is a sandwich. if there's not, then return and make the user order chips or a drink
         if(myCart.getShoppingCart().isEmpty()){
             System.out.println("You have to either order a sandwich, or have a drink/chips in order to check out.");
             return;
         }
-        myCart.getShoppingCart().stream()
-                .map(Product::toString)
-                .forEach(System.out::println);
+        myCart.getShoppingCart().forEach(System.out::println);
         System.out.println("Total cost will be: $" + String.format("%.2f", myCart.getTotalCost()));
         System.out.println("Type confirm to confirm your order, type cancel to cancel your order\nAny other input will return you back to the menu.");
         String input = scanner.nextLine();

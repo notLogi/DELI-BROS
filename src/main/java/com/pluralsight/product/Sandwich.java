@@ -39,8 +39,8 @@ public class Sandwich extends Product{
             boolean removed = listOfToppings.removeIf(topping -> choice.equalsIgnoreCase(topping.getName()));
             if(!removed) System.out.println("The topping you inputted in is not included in the sandwich");
             else System.out.println("Removed successfully");
+            System.out.println("Anymore toppings to remove?\nAny other option is no.");
             String again = scanner.nextLine();
-            System.out.println("Anymore toppings to remove?");
             if(!again.equalsIgnoreCase("yes")){
                 break;
             }
@@ -302,6 +302,6 @@ public class Sandwich extends Product{
         }
         sb.deleteCharAt(sb.length() - 2);
         String isToastedConvert = isToasted() ? "(Toasted)" : "";
-        return "Sandwich" + isToastedConvert + ":\nBread Type: " + breadType + "\nSize: " + size + "\nToppings: " + sb + "\nPrice: $" + String.format("%.2f", getCost());
+        return "Sandwich" + isToastedConvert + "Price: $" + String.format("%.2f", getCost()) + ":\nBread Type: " + breadType + "\nSize: " + size + "\nToppings: " + sb;
     }
 }
