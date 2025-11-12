@@ -12,7 +12,6 @@ import com.pluralsight.toppings.Topping;
 import com.pluralsight.toppings.Vegetable;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class HomeScreen {
@@ -115,7 +114,7 @@ public class HomeScreen {
         Sandwich sandwich = new Sandwich("Sandwich", breadType, breadSize, wantToasted);
 
         if(optionCreateOwn.equalsIgnoreCase("choose")){
-            sandwich.setListOfToppings(buildSignatureSandwich(signatureChoice, breadSize, myCart));
+            sandwich.setListOfToppings(buildSignatureSandwich(signatureChoice, breadSize));
             System.out.println("Anymore toppings?");
         }
         else System.out.println("Please add a topping.");
@@ -128,7 +127,7 @@ public class HomeScreen {
             String choice = scanner.nextLine();
             if(choice.equalsIgnoreCase("yes")){
                 System.out.println(sandwich);//toString is "redundant", can just print out sandwich details.
-                removeTopping(scanner, sandwich);
+                sandwich.removeTopping(scanner);
             }
         }
         else System.out.println(":(");
@@ -191,7 +190,7 @@ public class HomeScreen {
         }
     }
 
-    public ArrayList<Topping> buildSignatureSandwich(int choice, int size, Cart cart){
+    public ArrayList<Topping> buildSignatureSandwich(int choice, int size){
         ArrayList<Topping> toppings = new ArrayList<>();
         switch(choice){
             case 1:
@@ -205,10 +204,6 @@ public class HomeScreen {
                 toppings.add(new Sauce("Ranch", false));
         }
         return toppings;
-    }
-
-    public void removeTopping(Scanner scanner, Sandwich sandwich){
-
     }
 
     public void addChips(Scanner scanner){

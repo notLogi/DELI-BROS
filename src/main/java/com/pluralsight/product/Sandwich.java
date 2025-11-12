@@ -31,7 +31,7 @@ public class Sandwich extends Product{
         this.listOfToppings = listOfToppings;
     }
 
-    public void removeToppings(Scanner scanner){
+    public void removeTopping(Scanner scanner){
         while(true){
             System.out.println("What toppings do you want to remove? Type 99 to return.");
             String choice = scanner.nextLine();
