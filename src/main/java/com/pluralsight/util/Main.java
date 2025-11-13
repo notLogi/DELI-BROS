@@ -1,11 +1,6 @@
-package com.pluralsight;
+package com.pluralsight.util;
 
-import com.pluralsight.data.ReceiptManager;
-import com.pluralsight.product.Product;
-import com.pluralsight.product.Sandwich;
 import com.pluralsight.userinterface.HomeScreen;
-
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {

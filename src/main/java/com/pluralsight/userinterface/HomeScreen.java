@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 public class HomeScreen {
     private Cart myCart;
+    public static final String GREEN = "\u001B[32m";
+    public static final String RESET = "\u001B[0m";
 
     public HomeScreen(){
         myCart = new Cart();
@@ -97,6 +99,7 @@ public class HomeScreen {
         String toastedInput = scanner.nextLine();
         boolean wantToasted = toastedInput.equalsIgnoreCase("yes");
 
+        SandwichScreen sandwichScreen = new SandwichScreen();
         Sandwich sandwich = new Sandwich("Custom Sandwich", breadType, breadSize, wantToasted);
 
         if(optionCreateOwn.equalsIgnoreCase("choose")){
@@ -105,7 +108,7 @@ public class HomeScreen {
         }
         else System.out.println("Please add a topping.");
 
-        sandwich.addTopping(scanner);
+        sandwichScreen.addTopping(scanner, sandwich);
         if(!sandwich.getListOfToppings().isEmpty()) {
             myCart.addProduct(sandwich);
             System.out.println("Sandwich added successfully");
@@ -113,7 +116,7 @@ public class HomeScreen {
             String choice = scanner.nextLine();
             if(choice.equalsIgnoreCase("yes")){
                 System.out.println(sandwich);//toString is "redundant", can just print out sandwich details.
-                sandwich.removeTopping(scanner);
+                sandwichScreen.removeTopping(scanner, sandwich);
             }
         }
         else System.out.println(":(");
