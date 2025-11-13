@@ -3,7 +3,7 @@ package com.pluralsight.product;
 public abstract class Product {
     private String name;
 
-    Product(String name){
+    public Product(String name){
         this.name = name;
     }
 

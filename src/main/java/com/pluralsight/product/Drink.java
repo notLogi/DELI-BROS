@@ -28,7 +28,13 @@ public class Drink extends Product{
 
     @Override
     public String toString() {
-        return "Drink: " + getName() + "(size: " +
-                size + "): $" + String.format("%.2f", getCost());
+        String sizeConvert = switch(size){
+            case 1 -> "small";
+            case 2 -> "medium";
+            case 3 -> "large";
+            default -> throw new IllegalStateException("Unexpected value: " + size);
+        };
+        return getName() + "(size: " +
+                sizeConvert + "): $" + String.format("%.2f", getCost());
     }
 }
