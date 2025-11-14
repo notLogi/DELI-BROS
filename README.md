@@ -3,6 +3,9 @@
 
 The Deli Around the Corner application allows customer to order sandwiches, chips, and drinks. Sandwiches are fully customizable with cold cuts, veggies, and sauces of their choosing. After checking out, the receipt is stored in a text file named the time the order was processed.   
 
+## Class Diagram
+<img width="1801" height="835" alt="image" src="https://github.com/user-attachments/assets/26eee9c0-57be-4dbc-b66e-3b814ab0f8ce" />
+
 
 ## User stories
 - As a customer, I want to have an option to add a sandwich to my order, so I can buy a sandwich.
@@ -60,9 +63,6 @@ Follow these steps to get your application running within IntelliJ IDEA:
 <img width="789" height="409" alt="image" src="https://github.com/user-attachments/assets/4694b657-db6c-429c-957e-9a5a58eebce6" />
 <img width="788" height="477" alt="image" src="https://github.com/user-attachments/assets/313bfe97-144a-4342-ad20-2d217574c0be" />
 <img width="595" height="313" alt="image" src="https://github.com/user-attachments/assets/fb7def3c-e900-42be-8283-a7be3c4e1cf9" />
-
-## Class Diagram
-<img width="1801" height="835" alt="image" src="https://github.com/user-attachments/assets/26eee9c0-57be-4dbc-b66e-3b814ab0f8ce" />
 
 
 
