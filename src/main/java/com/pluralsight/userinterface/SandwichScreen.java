@@ -7,9 +7,12 @@ import com.pluralsight.util.InputValidation;
 import java.util.Scanner;
 
 public class SandwichScreen {
+    public static final String GREEN = "\u001B[32m";
+    public static final String RESET = "\u001B[0m";
+
     public void addTopping(Scanner scanner, Sandwich sandwich){
         while(true) {
-            int choice = InputValidation.parseInt("What toppings do you want? Type 1-5, meat, cheese, vegetables, sauces, and sides, respectively.\nType 99 to back.", scanner);
+            int choice = InputValidation.parseInt(GREEN + "What toppings do you want? Type 1-5, meat, cheese, vegetables, sauces, and sides, respectively." + RESET + "\nType 99 to back.", scanner);
             if (choice == 99) {
                 return;
             }
@@ -26,7 +29,7 @@ public class SandwichScreen {
 
     public void processMeatChoice(Scanner scanner, Sandwich sandwich) {
         while(true) {
-            int meatChoice = InputValidation.parseInt("""
+            int meatChoice = InputValidation.parseInt(GREEN + """
                     Meats
                     1 - steak
                     2 - ham
@@ -34,7 +37,7 @@ public class SandwichScreen {
                     4 - roast beef
                     5 - chicken
                     6 - bacon
-                    99 - back""", scanner);
+                    99 - back""" + RESET, scanner);
             if (meatChoice == 99) return;
 
             String name;
@@ -48,7 +51,7 @@ public class SandwichScreen {
                 default -> name = "";
             }
             if (!name.isEmpty()) {
-                System.out.println("Do you want extra meat?\nType yes if you do, leave blank if you don't");
+                System.out.println(GREEN + "Do you want extra meat?\nType yes if you do, leave blank if you don't" + RESET);
                 String choiceExtra = scanner.nextLine();
                 boolean wantsExtra = choiceExtra.equalsIgnoreCase("yes");
                 sandwich.addToppingToList(new Meat(name, sandwich.getSize(), wantsExtra));
@@ -60,14 +63,14 @@ public class SandwichScreen {
     }
     public void processCheeseChoice(Scanner scanner, Sandwich sandwich) {
         while (true) {
-            int cheeseChoice = InputValidation.parseInt("""
+            int cheeseChoice = InputValidation.parseInt(GREEN + """
                     Cheeses
                     1 - american
                     2 - provolone
                     3 - cheddar
                     4 - swiss
                     99 - back
-                    """, scanner);//readInteger, make a helper method that helps parse an integer, take in a string as an argument
+                    """ + RESET, scanner);//readInteger, make a helper method that helps parse an integer, take in a string as an argument
             if (cheeseChoice == 99) return;
 
             String name;
@@ -80,7 +83,7 @@ public class SandwichScreen {
             }
 
             if (!name.isEmpty()) {
-                System.out.println("Do you want extra cheese?\nType yes if you do, leave blank if you don't");
+                System.out.println(GREEN + "Do you want extra cheese?\nType yes if you do, leave blank if you don't" + RESET);
                 String choiceExtra = scanner.nextLine();
                 boolean wantsExtra = choiceExtra.equalsIgnoreCase("yes");
                 sandwich.addToppingToList(new Cheese(name, sandwich.getSize(), wantsExtra));
@@ -93,7 +96,7 @@ public class SandwichScreen {
 
     public void processVegetableChoice(Scanner scanner, Sandwich sandwich){
         while(true) {
-            int vegetableChoice = InputValidation.parseInt("""
+            int vegetableChoice = InputValidation.parseInt(GREEN + """
                     Vegetables
                     1 - lettuce
                     2 - peppers
@@ -104,7 +107,7 @@ public class SandwichScreen {
                     7 - pickles
                     8 - guacamole
                     9 - mushrooms
-                    99 - back""", scanner);
+                    99 - back""" + RESET, scanner);
             if (vegetableChoice == 99) return;
 
             String name;
@@ -122,7 +125,7 @@ public class SandwichScreen {
             }
 
             if (!name.isEmpty()) {
-                System.out.println("Do you want extra veggies?\nType yes if you do, leave blank if you don't");
+                System.out.println(GREEN + "Do you want extra veggies?\nType yes if you do, leave blank if you don't" + RESET);
                 String choiceExtra = scanner.nextLine();
                 boolean wantsExtra = choiceExtra.equalsIgnoreCase("yes");
                 sandwich.addToppingToList(new Vegetable(name, wantsExtra));
@@ -136,14 +139,14 @@ public class SandwichScreen {
 
     public void processSauceChoice(Scanner scanner, Sandwich sandwich) {
         while (true) {
-            int sauceChoice = InputValidation.parseInt("""
+            int sauceChoice = InputValidation.parseInt(GREEN + """
                     Sauces
                     1 - mayo
                     2 - ketchup
                     3 - ranch
                     4 - thousand islands
                     5 - vinaigrette
-                    99 - back""", scanner);
+                    99 - back""" + RESET, scanner);
             if (sauceChoice == 99) return;
 
             String name;
@@ -156,7 +159,7 @@ public class SandwichScreen {
                 default -> name = "";
             }
             if (!name.isEmpty()) {
-                System.out.println("Do you want extra sauce?\nType yes if you do, any other input defaults to no.");
+                System.out.println(GREEN + "Do you want extra sauce?\nType yes if you do, any other input defaults to no." + RESET);
                 String choiceExtra = scanner.nextLine();
                 boolean wantsExtra = choiceExtra.equalsIgnoreCase("yes");
                 sandwich.addToppingToList(new Sauce(name, wantsExtra));
@@ -169,11 +172,11 @@ public class SandwichScreen {
 
     public void processSideChoice(Scanner scanner, Sandwich sandwich) {
         while (true) {
-            int sideChoice = InputValidation.parseInt("""
+            int sideChoice = InputValidation.parseInt(GREEN + """
                     Sides
                     1 - sauce
                     2 - au jus
-                    99 - back""", scanner);
+                    99 - back""" + RESET, scanner);
             if (sideChoice == 99) return;
 
             String name;
@@ -183,7 +186,7 @@ public class SandwichScreen {
                 default -> name = "";
             }
             if(!name.isEmpty()) {
-                System.out.println("Do you want extra sides?\nType yes if you do, any other input defaults to no");
+                System.out.println(GREEN + "Do you want extra sides?\nType yes if you do, any other input defaults to no" + RESET);
                 String choiceExtra = scanner.nextLine();
                 boolean wantsExtra = choiceExtra.equalsIgnoreCase("yes");
                 sandwich.addToppingToList(new Side(name, wantsExtra));
@@ -195,11 +198,11 @@ public class SandwichScreen {
     }
     public void removeTopping(Scanner scanner, Sandwich sandwich){
         while(true){
-            System.out.println("What toppings do you want to remove? Type 99 to return.");
+            System.out.println(GREEN + "What toppings do you want to remove? Type 99 to return." + RESET);
             String choice = scanner.nextLine();
             if(choice.equalsIgnoreCase("99")) return;
             boolean removed = sandwich.getListOfToppings().removeIf(topping -> choice.equalsIgnoreCase(topping.getName()));
-            if(!removed) System.out.println("The topping you inputted in is not included in the sandwich");
+            if(!removed) System.err.println("The topping you inputted in is not included in the sandwich");
             else System.out.println("Removed successfully");
             System.out.println("Anymore toppings to remove?\nAny other option is no.");
             String again = scanner.nextLine();
